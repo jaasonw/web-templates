@@ -2,9 +2,9 @@ name: Auto-update Dependencies
 
 on:
   push:
-    branches: ["sveltekit-tailwind"]
+    branches: ["*", "!master"]
   pull_request:
-    branches: ["sveltekit-tailwind"]
+    branches: ["*", "!master"]
 
 jobs:
   update-dependencies:
