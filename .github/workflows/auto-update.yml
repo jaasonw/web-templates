@@ -2,31 +2,31 @@ name: Auto-update Dependencies
 
 on:
   push:
-    branches: [ '*' ]
+    branches: ["sveltekit-tailwind"]
   pull_request:
-    branches: [ '*' ]
+    branches: ["sveltekit-tailwind"]
 
 jobs:
   update-dependencies:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'
-    - name: Install Dependencies
-      run: |
-        npm install
-    - name: Update Dependencies
-      run: |
-        npx npm-check-updates -u
-    - name: Commit and push changes
-      run: |
-        git config --global user.email "noreply@github.com"
-        git config --global user.name "github"
-        git add package.json
-        git add package-lock.json
-        git commit -m "chore(deps): update dependencies"
-        git push
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - name: Install Dependencies
+        run: |
+          npm install
+      - name: Update Dependencies
+        run: |
+          npx npm-check-updates -u
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "noreply@github.com"
+          git config --global user.name "github"
+          git add package.json
+          git add package-lock.json
+          git commit -m "update dependencies"
+          git push
