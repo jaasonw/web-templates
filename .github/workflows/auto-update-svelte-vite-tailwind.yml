@@ -1,0 +1,57 @@
+name: Auto-update Dependencies (Svelte Vite Tailwind)
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 0"
+
+jobs:
+  update-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout svelte-vite-tailwind"
+        uses: actions/checkout@v3
+        with:
+          ref: svelte-vite-tailwind
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+      - name: Install Dependencies (NPM)
+        run: |
+          npm install
+          rm -r node_modules
+      - name: Update Dependencies
+        run: |
+          npx npm-check-updates -u
+      - name: Install Dependencies (PNPM)
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+          pnpm install --no-frozen-lockfile
+          rm -r node_modules
+      - name: Test Build (NPM)
+          run: |
+            npm install
+            npm run build
+            rm -r node_modules
+      - name: Test Build (PNPM)
+          run: |
+            pnpm install
+            pnpm run build
+            rm -r node_modules
+      - name: Commit and create PR 🔀
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: "update dependencies"
+          branch: "svelte-vite-tailwind-update"
+          commit-message: "update dependencies"
+      # - name: Commit and push changes
+      #   run: |
+      #     git config --global user.email "noreply@github.com"
+      #     git config --global user.name "github"
+      #     git add package.json
+      #     git add package-lock.json
+      #     git add pnpm-lock.yaml
+      #     git commit -m "update dependencies"
+      #     git push
