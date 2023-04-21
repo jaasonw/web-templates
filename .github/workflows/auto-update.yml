@@ -1,32 +1,40 @@
 name: Auto-update Dependencies
 
 on:
-  push:
-    branches: ["*", "!main"]
-  pull_request:
-    branches: ["*", "!main"]
+  workflow_dispatch:
+  schedule:
+    - cron:  "0 0 * * 0"
 
 jobs:
   update-dependencies:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: 'Checkout sveltekit-tailwind'
         uses: actions/checkout@v3
+          with:
+            ref: sveltekit-tailwind
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
-      - name: Install Dependencies
+          node-version: "18"
+      - name: Install Dependencies (NPM)
         run: |
           npm install
       - name: Update Dependencies
         run: |
           npx npm-check-updates -u
+      - name: Install Dependencies (PNPM)
+        run: |
+          rm -r node_modules
+          corepack enable
+          corepack prepare pnpm@latest --activate
+          pnpm install
       - name: Commit and push changes
         run: |
           git config --global user.email "noreply@github.com"
           git config --global user.name "github"
           git add package.json
           git add package-lock.json
+          git add pnpm-lock.yaml
           git commit -m "update dependencies"
           git push
