@@ -31,15 +31,15 @@ jobs:
           pnpm install --no-frozen-lockfile
           rm -r node_modules
       - name: Test Build (NPM)
-          run: |
-            npm install
-            npm run build
-            rm -r node_modules
+        run: |
+          npm install
+          npm run build
+          rm -r node_modules
       - name: Test Build (PNPM)
-          run: |
-            pnpm install
-            pnpm run build
-            rm -r node_modules
+        run: |
+          pnpm install
+          pnpm run build
+          rm -r node_modules
       - name: Commit and create PR 🔀
         uses: peter-evans/create-pull-request@v3
         with:
