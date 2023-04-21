@@ -3,16 +3,16 @@ name: Auto-update Dependencies
 on:
   workflow_dispatch:
   schedule:
-    - cron:  "0 0 * * 0"
+    - cron: "0 0 * * 0"
 
 jobs:
   update-dependencies:
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout sveltekit-tailwind'
+      - name: "Checkout sveltekit-tailwind"
         uses: actions/checkout@v3
-          with:
-            ref: sveltekit-tailwind
+        with:
+          ref: sveltekit-tailwind
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
