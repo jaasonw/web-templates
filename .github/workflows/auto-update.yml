@@ -28,7 +28,7 @@ jobs:
           rm -r node_modules
           corepack enable
           corepack prepare pnpm@latest --activate
-          pnpm install
+          pnpm install --no-frozen-lockfile
       - name: Commit and push changes
         run: |
           git config --global user.email "noreply@github.com"
