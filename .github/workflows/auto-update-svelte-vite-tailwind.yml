@@ -44,7 +44,7 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           title: "update dependencies"
-          branch: "svelte-vite-tailwind"
+          branch: "svelte-vite-tailwind-update"
           commit-message: "update dependencies"
           body: "update dependencies"
           author: github-actions <noreply@github.com>
