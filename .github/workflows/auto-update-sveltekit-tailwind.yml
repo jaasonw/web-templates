@@ -40,20 +40,20 @@ jobs:
           pnpm install
           pnpm run build
           rm -r node_modules
-      - name: Commit and create PR
-        uses: peter-evans/create-pull-request@v3
-        with:
-          title: "update dependencies"
-          branch: "sveltekit-tailwind-update"
-          commit-message: "update dependencies"
-          body: "update dependencies"
-          author: github-actions <noreply@github.com>
-      # - name: Commit and push changes
-      #   run: |
-      #     git config --global user.email "noreply@github.com"
-      #     git config --global user.name "github"
-      #     git add package.json
-      #     git add package-lock.json
-      #     git add pnpm-lock.yaml
-      #     git commit -m "update dependencies"
-      #     git push
+      # - name: Commit and create PR
+      #   uses: peter-evans/create-pull-request@v3
+      #   with:
+      #     title: "update dependencies"
+      #     branch: "sveltekit-tailwind-update"
+      #     commit-message: "update dependencies"
+      #     body: "update dependencies"
+      #     author: github-actions <noreply@github.com>
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "noreply@github.com"
+          git config --global user.name "github"
+          git add package.json
+          git add package-lock.json
+          git add pnpm-lock.yaml
+          git commit -m "update dependencies"
+          git push
